@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Placeholder Icons</title>
+</head>
+<body>
+    <h1>Creating placeholder icons...</h1>
+    <div id="output"></div>
+    
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const output = document.getElementById('output');
+        
+        sizes.forEach(size => {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#0ea5e9');
+            gradient.addColorStop(1, '#d946ef');
+            
+            // Draw background circle
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - 4, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw white border
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = Math.max(2, size/64);
+            ctx.stroke();
+            
+            // Draw T letter
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${size * 0.35}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('T', size/2, size/2);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `icon-${size}x${size}.png`;
+            link.href = canvas.toDataURL();
+            link.textContent = `Download ${size}x${size}`;
+            link.style.display = 'block';
+            link.style.margin = '10px 0';
+            
+            output.appendChild(link);
+        });
+    </script>
+</body>
+</html>

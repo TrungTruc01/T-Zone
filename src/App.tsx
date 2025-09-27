@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import PWAInstallButton from './components/PWAInstallButton';
+import OfflineIndicator from './components/OfflineIndicator';
 
 // Pages
 import Home from './pages/Home';
@@ -52,6 +54,10 @@ function App() {
               {/* Catch all route */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+            
+            {/* PWA Components */}
+            <OfflineIndicator />
+            <PWAInstallButton />
           </div>
         </Router>
       </AuthProvider>
