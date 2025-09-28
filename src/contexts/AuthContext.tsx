@@ -80,8 +80,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signUp = async (email: string, password: string, displayName: string) => {
     try {
+      console.log('Starting signup process...');
       const { user: firebaseUser } = await createUserWithEmailAndPassword(auth, email, password);
+      console.log('User created successfully:', firebaseUser.uid);
+      
       await updateProfile(firebaseUser, { displayName });
+      console.log('Profile updated successfully');
       
       const newUser: User = {
         uid: firebaseUser.uid,
@@ -97,8 +101,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         createdAt: newUser.createdAt,
         updatedAt: newUser.updatedAt,
       });
-    } catch (error) {
-      throw error;
+      console.log('User document created in Firestore');
+    } catch (error: any) {
+      console.error('Signup error details:', error);
+      // Provide more specific error messages
+      if (error.code === 'auth/email-already-in-use') {
+        throw new Error('Email đã được sử dụng. Vui lòng sử dụng email khác.');
+      } else if (error.code === 'auth/weak-password') {
+        throw new Error('Mật khẩu quá yếu. Vui lòng sử dụng mật khẩu mạnh hơn.');
+      } else if (error.code === 'auth/invalid-email') {
+        throw new Error('Email không hợp lệ.');
+      } else if (error.code === 'auth/operation-not-allowed') {
+        throw new Error('Phương thức đăng ký này chưa được bật. Vui lòng liên hệ quản trị viên.');
+      } else if (error.code === 'permission-denied') {
+        throw new Error('Không có quyền truy cập. Vui lòng kiểm tra cấu hình.');
+      } else {
+        throw new Error(`Lỗi đăng ký: ${error.message || 'Vui lòng thử lại sau.'}`);
+      }
     }
   };
 

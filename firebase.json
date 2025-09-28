@@ -1,6 +1,10 @@
 {
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
   "hosting": {
-    "site": "t-zone-82489",
+    "site": "t-zone-6f2de",
     "public": "public",
     "ignore": [
       "firebase.json",
