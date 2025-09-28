@@ -4,6 +4,8 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import PWAInstallButton from './components/PWAInstallButton';
 import OfflineIndicator from './components/OfflineIndicator';
+import BottomNavigation from './components/BottomNavigation';
+import Onboarding from './pages/Onboarding';
 
 // Pages
 import Home from './pages/Home';
@@ -18,10 +20,11 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+          <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 pb-20 md:pb-0">
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Onboarding />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               
@@ -58,6 +61,7 @@ function App() {
             {/* PWA Components */}
             <OfflineIndicator />
             <PWAInstallButton />
+            <BottomNavigation />
           </div>
         </Router>
       </AuthProvider>
