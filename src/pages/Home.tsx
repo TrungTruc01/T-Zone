@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
+import FirebaseTest from '../components/FirebaseTest';
 
 const Home: React.FC = () => {
   return (
@@ -93,6 +94,9 @@ const Home: React.FC = () => {
             Start Your Journey Today
           </Link>
         </div>
+        
+        {/* Firebase Test Component */}
+        <FirebaseTest />
       </div>
     </Layout>
   );
